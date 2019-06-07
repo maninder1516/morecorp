@@ -25,11 +25,11 @@ mix.styles([
 ], 'public/css/all.css');
 
 mix.scripts([
+   'public/js/jquery-3.3.1.min.js',
+   'public/js/jquery-ui.js',
+   'public/js/app.js',
    'public/js/adminlte.min.js',
    'public/js/bootstrap.min.js',
    'public/js/dataTables.bootstrap.min.js',
    'public/js/jquery.dataTables.min.js',
-   'public/js/jquery-3.3.1.min.js',
-   'public/js/jquery-ui.js',
-   'public/js/app.js',
 ], 'public/js/all.js');
