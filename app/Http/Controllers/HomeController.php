@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class HomeController extends Controller
 {
@@ -16,6 +17,11 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
+
+    public function view() {
+        return view('admin.dashboard');
+    }
+
     /**
      * Show the application dashboard.
      *
@@ -24,5 +30,12 @@ class HomeController extends Controller
     public function index()
     {
         return view('admin.dashboard');
+        // return response([
+        //     'error' => false,
+        //     'msg' => '',
+        //     'data' => null
+        // ],200);
+        
+        // , Response::HTTP_OK
     }
 }

@@ -18,6 +18,7 @@ return [
     'login_failed' => 'Aanmelden mislukt',
     'forgot_your_password' => 'Uw wachtwoord vergeten?',
     'remember_me' => 'Onthoud mij',
+    'home' => 'Huis',
     // Registration Messages
     'name' => 'Naam',
 ];
