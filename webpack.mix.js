@@ -11,5 +11,25 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+// mix.js('resources/js/app.js', 'public/js')
+//    .sass('resources/sass/app.scss', 'public/css');
+
+mix.styles([
+   'public/css/AdminLTE.min.css',
+   'public/css/_all-skins.min.css',
+   'public/css/bootstrap.min.css',
+   'public/css/dataTables.bootstrap.min.css',
+   'public/css/font-awesome.min.css',
+   'public/css/main.css',
+   'public/css/style.css',
+], 'public/css/all.css');
+
+mix.scripts([
+   'public/js/adminlte.min.js',
+   'public/js/bootstrap.min.js',
+   'public/js/dataTables.bootstrap.min.js',
+   'public/js/jquery.dataTables.min.js',
+   'public/js/jquery-3.3.1.min.js',
+   'public/js/jquery-ui.js',
+   'public/js/app.js',
+], 'public/js/all.js');
