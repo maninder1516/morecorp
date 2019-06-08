@@ -11,8 +11,15 @@
 |
 */
 
+use App\Product;
+
 Route::get('/', function () {
-    return view('welcome');
+    // Get all the Products
+    $products = Product::orderBy('id', 'desc')
+                          ->paginate(5);
+
+    return view('welcome', ['products' => $products ]);
+    // return view('welcome');
 });
 
 Auth::routes();
@@ -21,7 +28,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 /* ---------------------------- Products ----------------------------------- */
-Route::group(['prefix' => 'products'], function() {
+Route::group(['prefix' => 'products', 'middleware' => ['web', 'auth'] ], function() {
 	Route::get('/', array('as' => 'products', 'uses' => 'ProductController@index'));
 	Route::get('add/', array('as' => 'products/add', 'uses' => 'ProductController@add'));
     Route::post('create/', array('uses' => 'ProductController@create'));

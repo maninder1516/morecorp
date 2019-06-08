@@ -25,7 +25,7 @@
             }
 
             .flex-center {
-                align-items: center;
+                /* align-items: center; */
                 display: flex;
                 justify-content: center;
             }
@@ -45,7 +45,7 @@
             }
 
             .title {
-                font-size: 84px;
+                font-size: 25px;
             }
 
             .links > a {
@@ -61,7 +61,11 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            .m-t-md {
+                margin-top: 50px;
+            }
         </style>
+        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet">
     </head>
     <body>
         <div class="flex-center position-ref full-height">
@@ -78,21 +82,41 @@
                     @endauth
                 </div>
             @endif
+            
 
-            <div class="content">
-                <div class="title m-b-md">
-                    MintM App
+            <div class="container">
+                <div class="well well-sm m-t-md">
+                    <strong>Category Title - Products</strong>
                 </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
+                <div id="products" class="row list-group">
+                    @forelse($products as $product)
+                    <div class="item  col-xs-4 col-md-4">
+                        <div class="thumbnail">
+                            <img class="group list-group-image" src="{{asset('img/sample-product.png')}}" alt="" />
+                            <div class="caption">
+                                <h4 class="group inner list-group-item-heading">
+                                    {{ $product->name }}</h4>
+                                <p class="group inner list-group-item-text">
+                                    {{ $product->description }}.</p>
+                                <div class="row">
+                                    <div class="col-xs-12 col-md-6">
+                                        <p class="lead">
+                                            $ {{ number_format($product->price, 2, '.', ',') }}</p>
+                                    </div>
+                                    <div class="col-xs-12 col-md-6">
+                                        <a class="btn btn-success" href="{{ URL::to('productview/'.base_convert($product->id + 1000, 10, 36)) }}">View</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @empty
+                    <tr>
+                        <td colspan="7" class="notfound"> No record found </td>
+                    </tr>
+                    @endforelse
                 </div>
+                <div>{!! $products->links() !!}</div>
             </div>
         </div>
     </body>
