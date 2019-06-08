@@ -17,19 +17,19 @@
             <div class="box">
                 <!-- Box-header -->
                 <div class="box-header with-border">
-                    <h3 class="box-title">View Product Details</h3>
+                    <h3 class="box-title">View Product Details <b>(Total views : {{ $total_product_views }})</b></h3>
                     <a class="btn btn-info pull-right" href="/products">Back to list</a>
                 </div>
 
                 <!-- Box-body -->
                 <div class="box-body">
-                    <div class="panel-heading">Product Details <b>(Total views : {{ $total_product_views }})</b></div>
                     <div class="panel-body">
+                        <strong>Category :</strong> {{$product->category->name}}<br>
                         <strong>Name :</strong> {{$product->name}}<br>
                         <strong>SKU :</strong> {{$product->sku}}<br>
                         <strong>Price :</strong> £  {{$product->price}}<br>
                         <strong>Description :</strong> {{$product->description}}<br>
-                        <strong>Created by :</strong> {{$product->cretaed_by}}<br>
+                        <strong>Created by :</strong> {{$product->user->name}}<br>
                         <strong>Created on :</strong> {{$product->created_at}}<br> <br> <br>
                         <strong><a class="" href="#" onclick="show_bids();">
                                 <h3 class="btn btn-primary"><b>See Product Bid History </b></h3>

@@ -27,8 +27,11 @@ class ProductController extends Controller
             $page_limit = config('app.page_limit');
 
             // Get all the Products
-            $products = Product::with('category', 'user')->orderBy('id', 'desc')
+            $products = Product::orderBy('id', 'desc')
                 ->paginate($page_limit);
+            // Lazy loads the Category and User for the product
+            $products->load('category', 'user');
+            
 
             // Pass all the parameters to its view
             return view('admin.products.index', ['products' => $products]);
@@ -45,10 +48,11 @@ class ProductController extends Controller
     public function add()
     {
         try {
+            $product = new Product;
             // Get categories's list
             $categories =  Category::pluck('name', 'id');
 
-            return view('admin.products.add', ['categories' => $categories]);
+            return view('admin.products.addedit', ['product' => $product, 'categories' => $categories]);
         } catch (Exception $ex) {
             // Log the error
             Log::error("Method: " . __METHOD__ . ", Line " . __LINE__ . ": " . (string)$ex);
@@ -108,7 +112,7 @@ class ProductController extends Controller
             // Get categories's list
             $categories =  Category::pluck('name', 'id');
 
-            return view('admin.products.edit', ['product' => $product, 'categories' => $categories]);
+            return view('admin.products.addedit', ['product' => $product, 'categories' => $categories]);
         } catch (Exception $ex) {
             // Log the error
             Log::error("Method: " . __METHOD__ . ", Line " . __LINE__ . ": " . (string)$ex);
@@ -185,8 +189,8 @@ class ProductController extends Controller
         try {
             // Decode the Id
             $id = intval($refId, 36) - 1000;
-            // Find the Voucher details with its ID
-            $product = Product::find($id);
+            // Find the Voucher details with its ID -- Eager loading for Category and User
+            $product = Product::with('category', 'user')->find($id);
 
             // Get the count of product views
             $total_product_views = ProductViews::where('product_id', $id)->count();
