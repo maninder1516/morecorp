@@ -47,6 +47,14 @@ class Product extends Model
     }
 
     /**
+     * Get the use who created the product.
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User', 'created_by');
+    }
+
+    /**
      * Get the views for the product.
      */
     public function views()

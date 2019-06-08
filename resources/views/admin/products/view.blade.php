@@ -27,7 +27,7 @@
                     <div class="panel-body">
                         <strong>Name :</strong> {{$product->name}}<br>
                         <strong>SKU :</strong> {{$product->sku}}<br>
-                        <strong>Price :</strong> {{$product->price}}<br>
+                        <strong>Price :</strong> £  {{$product->price}}<br>
                         <strong>Description :</strong> {{$product->description}}<br>
                         <strong>Created by :</strong> {{$product->cretaed_by}}<br>
                         <strong>Created on :</strong> {{$product->created_at}}<br> <br> <br>

@@ -23,17 +23,15 @@ class ProductController extends Controller
     public function index()
     {
         try {
-            // Get the pagination from config files
-            $paginate = 15;
-            // Get all the Products
-            $products = Product::orderBy('id', 'desc')
-                ->paginate($paginate);
+            // Get the pagination limit from the config files
+            $page_limit = config('app.page_limit');
 
-            // Get user's list
-            $users =  User::pluck('name', 'id');
+            // Get all the Products
+            $products = Product::with('category', 'user')->orderBy('id', 'desc')
+                ->paginate($page_limit);
 
             // Pass all the parameters to its view
-            return view('admin.products.index', ['products' => $products, 'users' => $users]);
+            return view('admin.products.index', ['products' => $products]);
         } catch (Exception $ex) {
             // Log the error
             Log::error("Method: " . __METHOD__ . ", Line " . __LINE__ . ": " . (string)$ex);

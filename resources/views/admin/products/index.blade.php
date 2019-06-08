@@ -19,6 +19,7 @@
                         <thead>
                             <tr>
                                 <th>#</th>
+                                <th>Category</th>
                                 <th>Name</th>
                                 <th>SKU</th>
                                 <th>Price</th>
@@ -31,11 +32,12 @@
                             @forelse($products as $product)
                             <tr>
                                 <td>{{ $product->id }}</td>
+                                <td>{{ $product->category->name }}</td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->sku }}</td>
                                 <td>£ {{ number_format($product->price, 2, '.', ',') }}</td>
                                 <td>{{ str_limit($product->description, $limit = 25, $end = '...') }}</td>
-                                <td>{{ $users[$product->created_by] }}</td>
+                                <td>{{ $product->user->name }}</td>
                                 <td>
                                     <a class="btn" href="{{ URL::to('products/edit/'.base_convert($product->id + 1000, 10, 36) ) }}" title="Edit"><i class="fa fa-edit"></i></a>
                                     <a class="btn" href="{{ URL::to('products/delete/'.base_convert($product->id + 1000, 10, 36) ) }}" title="Delete" onClick="return confirm('Are you sure you want to delete this record ?')"><i class="fa fa-trash-o" style="color:red"></i></a>
