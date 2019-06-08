@@ -29,17 +29,19 @@
                         </thead>
                         <tbody>
                             @forelse($products as $product)
-                            <td>{{ $product->id }}</td>
-                            <td>{{ $product->name }}</td>
-                            <td>{{ $product->sku }}</td>
-                            <td>£ {{ number_format($product->price, 2, '.', ',') }}</td>
-                            <td>{{ str_limit($product->description, $limit = 25, $end = '...') }}</td>
-                            <td>{{ $users[$product->created_by] }}</td>
-                            <td>
-                                <a class="btn btn-warning" href="{{ URL::to('products/edit/'.base_convert($product->id + 1000, 10, 36) ) }}" title="Edit"><i class="fa fa-edit"></i></a>
-                                <a class="btn btn-danger" href="{{ URL::to('products/delete/'.base_convert($product->id + 1000, 10, 36) ) }}" title="Delete" onClick="return confirm('Are you sure you want to delete this record ?')"><i class="fa fa-trash-o" style="color:red"></i></a>
-                                <a class="btn btn-info" href="{{ URL::to('products/view/'.base_convert($product->id + 1000, 10, 36) ) }}" title="View"><i class="fa fa-eye"></i></a>
-                            </td>
+                            <tr>
+                                <td>{{ $product->id }}</td>
+                                <td>{{ $product->name }}</td>
+                                <td>{{ $product->sku }}</td>
+                                <td>£ {{ number_format($product->price, 2, '.', ',') }}</td>
+                                <td>{{ str_limit($product->description, $limit = 25, $end = '...') }}</td>
+                                <td>{{ $users[$product->created_by] }}</td>
+                                <td>
+                                    <a class="btn" href="{{ URL::to('products/edit/'.base_convert($product->id + 1000, 10, 36) ) }}" title="Edit"><i class="fa fa-edit"></i></a>
+                                    <a class="btn" href="{{ URL::to('products/delete/'.base_convert($product->id + 1000, 10, 36) ) }}" title="Delete" onClick="return confirm('Are you sure you want to delete this record ?')"><i class="fa fa-trash-o" style="color:red"></i></a>
+                                    <a class="btn" href="{{ URL::to('products/view/'.base_convert($product->id + 1000, 10, 36) ) }}" title="View"><i class="fa fa-eye"></i></a>
+                                </td>
+                            </tr>
                             @empty
                             <tr>
                                 <td colspan="7" class="notfound"> No record found </td>

@@ -15,7 +15,7 @@ class CreateProductsTable extends Migration
     {
         Schema::create('products', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('category_id')->unique(); // To create the index, we can chain the unique
+            $table->integer('category_id');
             $table->string('name');
             $table->string('sku', 6);
             $table->float('price');
