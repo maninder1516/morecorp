@@ -19,12 +19,47 @@ class Product extends Model
 
     use SoftDeletes;
 
+    // Validate the product
+    public static function validate($data) {
+        return \Validator::make($data, static::$rules, static::$messages);
+    }
+    
+    // Rules for Product add validation
+    public static $rules = array(
+        'name' => 'required',       
+        'sku' => 'required',
+        'price' => 'required'       
+    );
+    
+    // Messages
+    public static $messages = array(
+        'name.required' => 'The name is required. ',
+        'sku.required' => 'The sku is required.',
+        'price.required' => 'The price is required. ',
+    );
+
     /**
      * Get the category that owns the product.
      */
     public function category()
     {
         return $this->belongsTo('App\Category');
+    }
+
+    /**
+     * Get the views for the product.
+     */
+    public function views()
+    {
+        return $this->hasMany('App\ProductViews');
+    }
+
+     /**
+     * Get the bids for the product.
+     */
+    public function bids()
+    {
+        return $this->hasMany('App\ProductBids');
     }
 
 }
