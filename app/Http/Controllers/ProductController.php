@@ -219,16 +219,15 @@ class ProductController extends Controller
             $product = Product::find($id);
 
             // Save the product views
-            $product_views = new ProductReview;
+            $product_views = new ProductViews;
             $product_views->product_id = $id;
-            $product_views->ip_addr = request()->ip();
+            $product_views->visitors_ip = request()->ip();
 
             $product_views->save();
 
-
             $latest_bid_amt = 0;
             // Get the latest bid on the product
-            $latest_bid = ProductBid::where('product_id', $id)
+            $latest_bid = ProductBids::where('product_id', $id)
                 ->orderBy('id', 'desc')
                 ->first();
             if ($latest_bid != null) {
@@ -250,7 +249,7 @@ class ProductController extends Controller
     {
         try {
             // Validate the required fields
-            $validation = ProductBid::validate(Input::all());
+            $validation = ProductBids::validate(Input::all());
             if ($validation->fails()) {
                 //dd('Hello');
                 return redirect('productview/' . $refId)
@@ -260,7 +259,7 @@ class ProductController extends Controller
                 $id = intval($refId, 36) - 1000;
 
                 // Save the product bid
-                $product_bid = new ProductBid;
+                $product_bid = new ProductBids;
                 $product_bid->product_id = $id;
                 $product_bid->email = $request->input('email');
                 $product_bid->amount = $request->input('amount');
