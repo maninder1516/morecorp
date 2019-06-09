@@ -12,6 +12,9 @@ use App\Category;
 use App\Product;
 use App\ProductViews;
 use App\ProductBids;
+// Notification
+use Notification;
+use App\Notifications\HigherBidPlaced;
 
 class ProductController extends Controller
 {
@@ -251,20 +254,44 @@ class ProductController extends Controller
             // Validate the required fields
             $validation = ProductBids::validate(Input::all());
             if ($validation->fails()) {
-                //dd('Hello');
                 return redirect('productview/' . $refId)
                     ->with('errors', $validation->errors());
             } else {
                 // Decode the Id
                 $id = intval($refId, 36) - 1000;
 
+                $bid_amount = $request->input('amount');
                 // Save the product bid
                 $product_bid = new ProductBids;
                 $product_bid->product_id = $id;
                 $product_bid->email = $request->input('email');
-                $product_bid->amount = $request->input('amount');
+                $product_bid->amount = $bid_amount;
 
+                // Notify only if a higher bid is placed
+                $highest_bid_amt = ProductBids::where('product_id', $id)->max('amount');                
+                if($bid_amount > $highest_bid_amt) {
+                    $details = [
+                        'greeting' => 'Hi',
+                        'body' => 'Higher bid is placed for the product',
+                        'actionURL' => url('/'),
+                        'product_id' => $id,
+                        'amount' => $bid_amount
+                    ];
+
+                    $product_bids = ProductBids::where('product_id', $id)->get();
+
+                    // Send notification
+                    // Notification::send($product_bids, new HigherBidPlaced($details));
+                }
+
+                // Now save the bid to database
                 $product_bid->save();
+
+                // Using Helper Functions
+                // if(function_exists('carbon')) {
+                //     $time = carbon();
+                //     $toupper = strupper('maninder');
+                // }
 
                 // Log the save information
                 Log::info('Product details for the updated successfully.');

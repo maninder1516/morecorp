@@ -42,4 +42,6 @@ Route::group(['prefix' => 'products', 'middleware' => ['web', 'auth'] ], functio
 /* ---------------------------- Frontend ----------------------------------- */
 Route::get('productview/{id}', array('as' => 'productview', 'uses' => 'ProductController@productview'));
 Route::post('placebid/{id}', array('uses' => 'ProductController@placebid'));
+
+// Route::get('send',  array('uses' => 'ProductController@sendNotification'));
 /* ---------------------------- ./Frontend ----------------------------------- */

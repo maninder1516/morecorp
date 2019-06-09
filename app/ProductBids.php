@@ -4,10 +4,16 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Notifications\Notifiable;
 
 class ProductBids extends Model
 {
     use SoftDeletes;
+    use Notifiable;
+
+    protected $email;
+
+    protected $amount;
 
     // Validate the product
     public static function validate($data) {
@@ -27,4 +33,6 @@ class ProductBids extends Model
         'amount.required' => 'The amount is required.',
         'amount.numeric' => 'The amount should be number only. ',
     );
+
+
 }
