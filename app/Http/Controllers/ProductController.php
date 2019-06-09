@@ -280,6 +280,8 @@ class ProductController extends Controller
 
                     $product_bids = ProductBids::where('product_id', $id)->get();
 
+                    // dd($product_bids);
+
                     // Send notification
                     // Notification::send($product_bids, new HigherBidPlaced($details));
                 }
